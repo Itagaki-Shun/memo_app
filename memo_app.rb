@@ -8,5 +8,7 @@ get '/' do
 end
 
 get '/top' do
-  'メモアプリ'
+  @title = 'top'
+  @memo_title = '仮の実装'
+  erb :top_index
 end

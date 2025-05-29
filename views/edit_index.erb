@@ -1,0 +1,9 @@
+<form action="/update/<%= @id %>" method="post">
+  <label for="title">タイトル:</label>
+  <input type="text" name="title" id="title" value="<%= @memo[:title] %>" required>
+  <br>
+  <label for="content">内容:</label>
+  <textarea name="content" id="content" required><%= @memo[:content] %></textarea>
+  <br>
+  <input type="submit" value="更新">
+</form>

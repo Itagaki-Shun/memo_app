@@ -4,7 +4,7 @@ require 'sinatra'
 require 'sinatra/reloader'
 
 # rubocop:disable Style/MutableConstant
-MEMO_TITLES = []
+MEMOS = []
 # rubocop:enable Style/MutableConstant
 
 get '/' do
@@ -13,7 +13,7 @@ end
 
 get '/top' do
   @title = 'top'
-  @memo_titles = MEMO_TITLES
+  @memos = MEMOS
   erb :top_index
 end
 
@@ -23,7 +23,17 @@ get '/new-memo' do
 end
 
 post '/create-memo' do
-  title = params[:title]
-  MEMO_TITLES << title unless title.nil? || title.empty?
+  MEMOS << { title: params[:title], content: params[:content] }
+  redirect '/top'
+end
+
+get '/edit-memo/:id' do
+  @title = 'edit-memo'
+  @id = params[:id]
+  @memo = MEMOS[params[:id].to_i]
+  erb :edit_index
+end
+
+post '/update/:id' do
   redirect '/top'
 end

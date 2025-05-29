@@ -35,5 +35,8 @@ get '/edit-memo/:id' do
 end
 
 post '/update/:id' do
+  id = params[:id].to_i
+  MEMOS[id][:title] = params[:title]
+  MEMOS[id][:content] = params[:content]
   redirect '/top'
 end

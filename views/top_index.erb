@@ -1,4 +1,8 @@
 <div>
-  <button>追加</button>
-  <%= @memo_title %>
+  <button><a href='new-memo'>追加</a></button>
+  <ul>
+  <% @memo_titles.each do |title| %>
+    <li><a href='edit'><%= title %></a></li>
+  <% end %>
+  </ul>
 </div>

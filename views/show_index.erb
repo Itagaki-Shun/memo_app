@@ -1,2 +1,6 @@
 <p><%= @memo[:title] %></p>
 <p><%= @memo[:content] %></p>
+<form action="/edit-memo/<%= @id %>" method="get">
+  <input type="submit" value="変更">
+</form>
+<input type="submit" value="削除">

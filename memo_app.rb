@@ -40,3 +40,10 @@ post '/update/:id' do
   MEMOS[id][:content] = params[:content]
   redirect '/top'
 end
+
+get '/show-memo/:id' do
+  @title = 'show-memo'
+  @id = params[:id]
+  @memo = MEMOS[params[:id].to_i]
+  erb :show_index
+end

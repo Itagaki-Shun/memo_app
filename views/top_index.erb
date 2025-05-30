@@ -3,7 +3,7 @@
   <ul>
   <% @memos.each_with_index do |memo, idx| %>
       <li>
-        <a href="/edit-memo/<%= idx %>"><%= memo[:title] %></a>
+        <a href="/show-memo/<%= idx %>"><%= memo[:title] %></a>
       </li>
     <% end %>
   </ul>

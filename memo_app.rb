@@ -47,3 +47,9 @@ get '/show-memo/:id' do
   @memo = MEMOS[params[:id].to_i]
   erb :show_index
 end
+
+delete '/delete-memo/:id' do
+  id = params[:id].to_i
+  MEMOS.delete_at(id)
+  redirect '/top'
+end

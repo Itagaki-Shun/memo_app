@@ -46,6 +46,34 @@
   padding: 10px 5px;
 }
 
+.memo_display {
+  text-align: left;
+  padding: 10px 45px;
+}
+
+.memo_display p[value="title"] {
+  font-size: 30px;
+}
+
+.memo_display p[value="content"] {
+  font-size: 25px;
+}
+
+.memo_processing {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 32px auto 0 auto;
+  padding: 0 45px;
+}
+.memo_processing input[type="submit"], .memo_processing button[type="submit"]{
+  padding: 12px 32px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-radius: 15px;
+  width: 200px;
+}
+
 ul {
   padding-left: 60px;
   font-size: 1.3rem;

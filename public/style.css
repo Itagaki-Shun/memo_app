@@ -16,11 +16,11 @@
   border-radius: 15px;
 }
 
-.memo_form {
+.memo_form, .update_button {
   text-align: center;
 }
 
-.memo_form input[type="submit"] {
+.memo_form input[type="submit"], .update_button input[type="submit"] {
   padding: 12px 32px;
   font-size: 1.1rem;
   font-weight: bold;

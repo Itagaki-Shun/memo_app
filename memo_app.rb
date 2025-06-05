@@ -34,7 +34,7 @@ get '/edit-memo/:id' do
   erb :edit_index
 end
 
-post '/update/:id' do
+patch '/update/:id' do
   id = params[:id].to_i
   MEMOS[id][:title] = params[:title]
   MEMOS[id][:content] = params[:content]

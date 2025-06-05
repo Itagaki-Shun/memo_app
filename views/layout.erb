@@ -6,14 +6,18 @@
   <title><%= @title %></title>
 </head>
 <body>
-    <header>
-      <h1>メモアプリ</h1>
-    </header>
-    <% if @title == "top" %>
-      <form action="/new-memo" method="get">
-        <input type="submit" value="追加">
-      </form>
-    <% end %>
+  <header>
+    <div class="header-row">
+      <a>メモアプリ</a>
+      <% if @title == "top" %>
+        <div>
+          <form action="/new-memo" method="get">
+            <input type="submit" value="追加">
+          </form>
+        </div>
+      <% end %>
+    </div>
+  </header>
   <%= yield %>
 </body>
 </html>

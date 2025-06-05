@@ -1,1 +1,10 @@
 /* style.css */
+
+.header-row {
+  font-size: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 32px auto 0 auto;
+  padding: 0 24px;
+}

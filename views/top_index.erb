@@ -1,10 +1,9 @@
 <div>
-  <button><a href='new-memo'>追加</a></button>
   <ul>
   <% @memos.each_with_index do |memo, idx| %>
-      <li>
-        <a href="/show-memo/<%= idx %>"><%= memo[:title] %></a>
-      </li>
-    <% end %>
+    <li>
+      <a href="/show-memo/<%= idx %>"><%= memo[:title] %></a>
+    </li>
+  <% end %>
   </ul>
 </div>

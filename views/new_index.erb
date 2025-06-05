@@ -1,8 +1,12 @@
-<form action="/create-memo" method="post">
-  <label for="title">タイトル:</label>
-  <input type="text" name="title" id="title" required>
-  <br>
-  <label for="content">内容:</label>
-  <textarea name="content" id="content" required></textarea>
-  <input type="submit" value="保存">
-</form>
+<div class="memo_form">
+  <form action="/create-memo" method="post">
+    <div class="memo_title">
+      <input type="text" name="title" id="title" placeholder="タイトル" required>
+    </div>
+    <br>
+    <div class="memo_content">
+      <textarea name="content" id="content" placeholder="内容" required></textarea>
+    </div>
+    <input type="submit" value="保存">
+  </form>
+</div>

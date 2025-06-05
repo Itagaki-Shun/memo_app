@@ -8,3 +8,10 @@
   margin: 32px auto 0 auto;
   padding: 0 24px;
 }
+
+.add_button input[type="submit"] {
+  padding: 12px 32px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 15px;
+}

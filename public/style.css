@@ -16,6 +16,36 @@
   border-radius: 15px;
 }
 
+.memo_form {
+  text-align: center;
+}
+
+.memo_form input[type="submit"] {
+  padding: 12px 32px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 15px;
+  width: 200px;
+}
+
+.memo_title, .memo_content{
+  padding: 0 30px;
+  margin: 10px 0;
+}
+.memo_title input[type="text"] {
+  font-size: 30px;
+  width: 100%;
+  padding: 10px 5px;
+}
+
+.memo_content textarea {
+  field-sizing: content;
+  font-size: 25px;
+  min-height: 350px;
+  width: 100%;
+  padding: 10px 5px;
+}
+
 ul {
   padding-left: 60px;
   font-size: 1.3rem;

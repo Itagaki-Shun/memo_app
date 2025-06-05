@@ -1,9 +1,13 @@
 <form action="/update/<%= @id %>" method="post">
-  <label for="title">タイトル:</label>
-  <input type="text" name="title" id="title" value="<%= @memo[:title] %>" required>
+  <div class="memo_title">
+    <input type="text" name="title" id="title" value="<%= @memo[:title] %>" required>
+  </div>
   <br>
-  <label for="content">内容:</label>
-  <textarea name="content" id="content" required><%= @memo[:content] %></textarea>
+  <div class="memo_content">
+    <textarea name="content" id="content" required><%= @memo[:content] %></textarea>
+  </div>
   <br>
-  <input type="submit" value="更新">
+  <div class="update_button">
+    <input type="submit" value="更新">
+  </div>
 </form>

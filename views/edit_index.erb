@@ -1,11 +1,11 @@
 <form action="/update/<%= @id %>" method="post">
   <input type="hidden" name="_method" value="patch">
   <div class="memo_title">
-    <input type="text" name="title" id="title" value="<%= @memo[:title] %>" required>
+    <input type="text" name="title" id="title" value="<%= @memo_title %>" required>
   </div>
   <br>
   <div class="memo_content">
-    <textarea name="content" id="content" required><%= @memo[:content] %></textarea>
+    <textarea name="content" id="content" required><%= @memo_content %></textarea>
   </div>
   <br>
   <div class="update_button">

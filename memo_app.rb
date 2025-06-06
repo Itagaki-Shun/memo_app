@@ -48,19 +48,27 @@ end
 get '/edit-memo/:id' do
   @title = 'edit-memo'
   @id = params[:id]
-  @memo = MEMOS[params[:id].to_i]
+  memos = get_memos(FILE_PATH)
+  @memo_title = memos[params[:id]]['title']
+  @memo_content = memos[params[:id]]['content']
   erb :edit_index
 end
 
 patch '/update/:id' do
-  id = params[:id].to_i
-  MEMOS[id][:title] = params[:title]
-  MEMOS[id][:content] = params[:content]
+  id = params[:id]
+  title = params[:title]
+  content = params[:content]
+
+  memos = get_memos(FILE_PATH)
+  memos[id] = { 'title' => title, 'content' => content }
+  set_memos(FILE_PATH, memos)
+
   redirect '/top'
 end
 
 get '/show-memo/:id' do
   @title = 'show-memo'
+  @id = params[:id]
   memos = get_memos(FILE_PATH)
   @memo_title = memos[params[:id]]['title']
   @memo_content = memos[params[:id]]['content']

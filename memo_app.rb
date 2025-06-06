@@ -4,10 +4,6 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'json'
 
-# rubocop:disable Style/MutableConstant
-# MEMOS = []
-# rubocop:enable Style/MutableConstant
-
 FILE_PATH = 'public/memos.json'
 
 def get_memos(file_path)
@@ -19,21 +15,21 @@ def set_memos(file_path, memos)
 end
 
 get '/' do
-  redirect '/top'
+  redirect '/memos'
 end
 
-get '/top' do
+get '/memos' do
   @title = 'top'
   @memos = get_memos(FILE_PATH)
   erb :top_index
 end
 
-get '/new-memo' do
-  @title = 'new-memo'
+get '/memos/new' do
+  @title = 'new'
   erb :new_index
 end
 
-post '/create-memo' do
+post '/memos' do
   title = params[:title]
   content = params[:content]
 
@@ -42,11 +38,11 @@ post '/create-memo' do
   memos[id] = { 'title' => title, 'content' => content }
   set_memos(FILE_PATH, memos)
 
-  redirect '/top'
+  redirect '/memos'
 end
 
-get '/edit-memo/:id' do
-  @title = 'edit-memo'
+get '/memos/:id/edit' do
+  @title = 'edit'
   @id = params[:id]
   memos = get_memos(FILE_PATH)
   @memo_title = memos[params[:id]]['title']
@@ -54,7 +50,7 @@ get '/edit-memo/:id' do
   erb :edit_index
 end
 
-patch '/update/:id' do
+patch '/memos/:id' do
   id = params[:id]
   title = params[:title]
   content = params[:content]
@@ -63,11 +59,11 @@ patch '/update/:id' do
   memos[id] = { 'title' => title, 'content' => content }
   set_memos(FILE_PATH, memos)
 
-  redirect '/top'
+  redirect '/memos'
 end
 
-get '/show-memo/:id' do
-  @title = 'show-memo'
+get '/memos/:id' do
+  @title = 'show'
   @id = params[:id]
   memos = get_memos(FILE_PATH)
   @memo_title = memos[params[:id]]['title']
@@ -75,10 +71,10 @@ get '/show-memo/:id' do
   erb :show_index
 end
 
-delete '/delete-memo/:id' do
+delete '/memos/:id' do
   memos = get_memos(FILE_PATH)
   memos.delete(params[:id])
   set_memos(FILE_PATH, memos)
 
-  redirect '/top'
+  redirect '/memos'
 end

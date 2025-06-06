@@ -1,6 +1,6 @@
 <div class="memo_display">
-  <p value="title"><%= @memo[:title] %></p>
-  <p value="content"><%= @memo[:content] %></p>
+  <p value="title"><%= @memo_title %></p>
+  <p value="content"><%= @memo_content %></p>
 </div>
 <div class="memo_processing">
   <form action="/edit-memo/<%= @id %>" method="get">

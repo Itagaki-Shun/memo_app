@@ -61,8 +61,9 @@ end
 
 get '/show-memo/:id' do
   @title = 'show-memo'
-  @id = params[:id]
-  @memo = MEMOS[params[:id].to_i]
+  memos = get_memos(FILE_PATH)
+  @memo_title = memos[params[:id]]['title']
+  @memo_content = memos[params[:id]]['content']
   erb :show_index
 end
 

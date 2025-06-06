@@ -2,10 +2,17 @@
 
 require 'sinatra'
 require 'sinatra/reloader'
+require 'json'
 
 # rubocop:disable Style/MutableConstant
-MEMOS = []
+# MEMOS = []
 # rubocop:enable Style/MutableConstant
+
+FILE_PATH = 'public/memos.json'
+
+def get_memos(file_path)
+  File.open(file_path) { |f| JSON.parse(f.read) }
+end
 
 get '/' do
   redirect '/top'

@@ -83,3 +83,8 @@ ul {
 li {
   margin: 10px auto;
 }
+
+a {
+  color: black;
+  text-decoration: none;
+}

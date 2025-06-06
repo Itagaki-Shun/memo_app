@@ -54,6 +54,7 @@ get '/memos/:id/edit' do
   @page_title = 'edit'
   @id = params[:id]
   memo = find_memo(@id)
+  halt 404, 'Not Found!' unless memo
   @memo_title = memo['title']
   @memo_content = memo['content']
   erb :edit_index
@@ -62,6 +63,7 @@ end
 patch '/memos/:id' do
   id = params[:id]
   memo = find_memo(id)
+  halt 404, 'Not Found!' unless memo
   memo['title'] = params[:title]
   memo['content'] = params[:content]
   set_memos(FILE_PATH, memos)
@@ -73,6 +75,7 @@ get '/memos/:id' do
   @page_title = 'show'
   @id = params[:id]
   memo = find_memo(@id)
+  halt 404, 'Not Found!' unless memo
   @memo_title = memo['title']
   @memo_content = memo['content']
   erb :show_index
@@ -80,6 +83,7 @@ end
 
 delete '/memos/:id' do
   id = params[:id]
+  halt 404, 'Not Found!' unless memos.key?
   memos.delete(id)
   set_memos(FILE_PATH, memos)
 

@@ -14,13 +14,17 @@ def get_memos(file_path)
   File.open(file_path) { |f| JSON.parse(f.read) }
 end
 
+def set_memos(file_path, memos)
+  File.open(file_path, 'w') { |f| JSON.dump(memos, f) }
+end
+
 get '/' do
   redirect '/top'
 end
 
 get '/top' do
   @title = 'top'
-  @memos = MEMOS
+  @memos = get_memos(FILE_PATH)
   erb :top_index
 end
 
@@ -30,7 +34,14 @@ get '/new-memo' do
 end
 
 post '/create-memo' do
-  MEMOS << { title: params[:title], content: params[:content] }
+  title = params[:title]
+  content = params[:content]
+
+  memos = get_memos(FILE_PATH)
+  id = ((memos.keys.map(&:to_i).max || 0) + 1).to_s
+  memos[id] = { 'title' => title, 'content' => content }
+  set_memos(FILE_PATH, memos)
+
   redirect '/top'
 end
 

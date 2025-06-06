@@ -1,7 +1,7 @@
 <ul>
-  <% @memos.each_with_index do |memo, idx| %>
+  <% @memos.each do |id, memo| %>
     <li>
-      <a href="/show-memo/<%= idx %>"><%= memo[:title] %></a>
+      <a href="/show-memo/<%= id %>"><%= memo["title"] %></a>
     </li>
   <% end %>
 </ul>

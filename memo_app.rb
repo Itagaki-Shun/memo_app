@@ -76,7 +76,9 @@ get '/show-memo/:id' do
 end
 
 delete '/delete-memo/:id' do
-  id = params[:id].to_i
-  MEMOS.delete_at(id)
+  memos = get_memos(FILE_PATH)
+  memos.delete(params[:id])
+  set_memos(FILE_PATH, memos)
+
   redirect '/top'
 end

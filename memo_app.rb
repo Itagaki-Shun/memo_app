@@ -19,30 +19,30 @@ get '/' do
 end
 
 get '/memos' do
-  @title = 'top'
+  @page_title = 'top'
   @memos = get_memos(FILE_PATH)
   erb :top_index
 end
 
 get '/memos/new' do
-  @title = 'new'
+  @page_title = 'new'
   erb :new_index
 end
 
 post '/memos' do
-  title = params[:title]
-  content = params[:content]
+  memo_title = params[:title]
+  memo_content = params[:content]
 
   memos = get_memos(FILE_PATH)
   id = ((memos.keys.map(&:to_i).max || 0) + 1).to_s
-  memos[id] = { 'title' => title, 'content' => content }
+  memos[id] = { 'title' => memo_title, 'content' => memo_content }
   set_memos(FILE_PATH, memos)
 
   redirect '/memos'
 end
 
 get '/memos/:id/edit' do
-  @title = 'edit'
+  @page_title = 'edit'
   @id = params[:id]
   memos = get_memos(FILE_PATH)
   @memo_title = memos[params[:id]]['title']
@@ -52,18 +52,18 @@ end
 
 patch '/memos/:id' do
   id = params[:id]
-  title = params[:title]
-  content = params[:content]
+  memo_title = params[:title]
+  memo_content = params[:content]
 
   memos = get_memos(FILE_PATH)
-  memos[id] = { 'title' => title, 'content' => content }
+  memos[id] = { 'title' => memo_title, 'content' => memo_content }
   set_memos(FILE_PATH, memos)
 
   redirect '/memos'
 end
 
 get '/memos/:id' do
-  @title = 'show'
+  @page_title = 'show'
   @id = params[:id]
   memos = get_memos(FILE_PATH)
   @memo_title = memos[params[:id]]['title']

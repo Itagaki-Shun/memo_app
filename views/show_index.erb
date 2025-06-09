@@ -1,0 +1,13 @@
+<div class="memo_display">
+  <p value="title"><%= h(@memo_title) %></p>
+  <p value="content"><%= h(@memo_content) %></p>
+</div>
+<div class="memo_processing">
+  <form action="/memos/<%= @id %>/edit" method="get">
+    <input type="submit" value="変更">
+  </form>
+  <form action="/memos/<%= @id %>" method="post" style="display:inline;">
+    <input type="hidden" name="_method" value="delete">
+    <button type="submit">削除</button>
+  </form>
+</div>

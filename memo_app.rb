@@ -3,6 +3,7 @@
 require 'sinatra'
 require 'sinatra/reloader'
 require 'json'
+require 'securerandom'
 
 FILE_PATH = 'public/memos.json'
 
@@ -47,7 +48,7 @@ post '/memos' do
   memo_title = params[:title]
   memo_content = params[:content]
 
-  id = ((memos.keys.map(&:to_i).max || 0) + 1).to_s
+  id = SecureRandom.uuid
   memos[id] = { 'title' => memo_title, 'content' => memo_content }
   set_memos(FILE_PATH, memos)
 

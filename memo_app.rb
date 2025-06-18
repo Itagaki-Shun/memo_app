@@ -16,14 +16,6 @@ def set_memos(file_path, memos)
 end
 
 helpers do
-  def memos
-    @memos ||= get_memos(FILE_PATH)
-  end
-
-  def find_memo(id)
-    memos[id]
-  end
-
   def h(text)
     Rack::Utils.escape_html(text)
   end
@@ -35,7 +27,7 @@ end
 
 get '/memos' do
   @page_title = 'top'
-  @memos = memos
+  @memos = get_memos(FILE_PATH)
   erb :top_index
 end
 
@@ -45,11 +37,12 @@ get '/memos/new' do
 end
 
 post '/memos' do
+  memos = get_memos(FILE_PATH)
   memo_title = params[:title]
   memo_content = params[:content]
 
   id = SecureRandom.uuid
-  memos[id] = { 'title' => memo_title, 'content' => memo_content }
+  memos[id.to_sym] = params.slice(:title, :content)
   set_memos(FILE_PATH, memos)
 
   redirect '/memos'
@@ -58,7 +51,8 @@ end
 get '/memos/:id/edit' do
   @page_title = 'edit'
   @id = params[:id]
-  memo = find_memo(@id)
+  memos = get_memos(FILE_PATH)
+  memo = memos[@id.to_sym]
   halt 404, 'Not Found!' unless memo
   @memo_title = memo['title']
   @memo_content = memo['content']
@@ -67,7 +61,8 @@ end
 
 patch '/memos/:id' do
   id = params[:id]
-  memo = find_memo(id)
+  memos = get_memos(FILE_PATH)
+  memo = memos[@id.to_sym]
   halt 404, 'Not Found!' unless memo
   memo['title'] = params[:title]
   memo['content'] = params[:content]
@@ -79,7 +74,8 @@ end
 get '/memos/:id' do
   @page_title = 'show'
   @id = params[:id]
-  memo = find_memo(@id)
+  memos = get_memos(FILE_PATH)
+  memo = memos[@id.to_sym]
   halt 404, 'Not Found!' unless memo
   @memo_title = memo['title']
   @memo_content = memo['content']

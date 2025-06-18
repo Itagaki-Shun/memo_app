@@ -16,6 +16,12 @@ def set_memos(file_path, memos)
 end
 
 helpers do
+  def target_memo(memos, id)
+    memo = memos[id.to_sym]
+    halt 404, 'Not Found!' unless memo
+    memo
+  end
+
   def h(text)
     Rack::Utils.escape_html(text)
   end
@@ -49,16 +55,14 @@ get '/memos/:id/edit' do
   @page_title = 'edit'
   @id = params[:id]
   memos = get_memos(FILE_PATH)
-  @current_memo = memos[@id.to_sym]
-  halt 404, 'Not Found!' unless @current_memo
+  @current_memo = target_memo(memos, @id)
   erb :edit_index
 end
 
 patch '/memos/:id' do
   id = params[:id]
   memos = get_memos(FILE_PATH)
-  current_memo = memos[id.to_sym]
-  halt 404, 'Not Found!' unless current_memo
+  current_memo = target_memo(memos, id)
   current_memo[:title] = params[:title]
   current_memo[:content] = params[:content]
   set_memos(FILE_PATH, memos)
@@ -70,15 +74,14 @@ get '/memos/:id' do
   @page_title = 'show'
   @id = params[:id]
   memos = get_memos(FILE_PATH)
-  @current_memo = memos[@id.to_sym]
-  halt 404, 'Not Found!' unless @current_memo
+  @current_memo = target_memo(memos, @id)
   erb :show_index
 end
 
 delete '/memos/:id' do
   id = params[:id]
   memos = get_memos(FILE_PATH)
-  halt 404, 'Not Found!' unless memos.key?(id.to_sym)
+  target_memo(memos, id)
   memos.delete(id.to_sym)
   set_memos(FILE_PATH, memos)
 

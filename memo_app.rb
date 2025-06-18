@@ -34,12 +34,12 @@ end
 get '/memos' do
   @page_title = 'top'
   @memos = get_memos
-  erb :top_index
+  erb :index
 end
 
 get '/memos/new' do
   @page_title = 'new'
-  erb :new_index
+  erb :new
 end
 
 post '/memos' do
@@ -56,7 +56,7 @@ get '/memos/:id/edit' do
   @id = params[:id]
   memos = get_memos
   @current_memo = target_memo(memos, @id)
-  erb :edit_index
+  erb :edit
 end
 
 patch '/memos/:id' do
@@ -75,7 +75,7 @@ get '/memos/:id' do
   @id = params[:id]
   memos = get_memos
   @current_memo = target_memo(memos, @id)
-  erb :show_index
+  erb :show
 end
 
 delete '/memos/:id' do

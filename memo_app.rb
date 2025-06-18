@@ -7,11 +7,11 @@ require 'securerandom'
 
 FILE_PATH = 'public/memos.json'
 
-def get_memos(file_path)
+def get_memos(file_path = FILE_PATH)
   File.open(file_path) { |f| JSON.parse(f.read, symbolize_names: true) }
 end
 
-def set_memos(file_path, memos)
+def set_memos(memos, file_path = FILE_PATH)
   File.open(file_path, 'w') { |f| JSON.dump(memos, f) }
 end
 
@@ -33,7 +33,7 @@ end
 
 get '/memos' do
   @page_title = 'top'
-  @memos = get_memos(FILE_PATH)
+  @memos = get_memos
   erb :top_index
 end
 
@@ -43,10 +43,10 @@ get '/memos/new' do
 end
 
 post '/memos' do
-  memos = get_memos(FILE_PATH)
+  memos = get_memos
   id = SecureRandom.uuid
   memos[id.to_sym] = params.slice(:title, :content)
-  set_memos(FILE_PATH, memos)
+  set_memos(memos)
 
   redirect '/memos'
 end
@@ -54,18 +54,18 @@ end
 get '/memos/:id/edit' do
   @page_title = 'edit'
   @id = params[:id]
-  memos = get_memos(FILE_PATH)
+  memos = get_memos
   @current_memo = target_memo(memos, @id)
   erb :edit_index
 end
 
 patch '/memos/:id' do
   id = params[:id]
-  memos = get_memos(FILE_PATH)
+  memos = get_memos
   current_memo = target_memo(memos, id)
   current_memo[:title] = params[:title]
   current_memo[:content] = params[:content]
-  set_memos(FILE_PATH, memos)
+  set_memos(memos)
 
   redirect '/memos'
 end
@@ -73,17 +73,17 @@ end
 get '/memos/:id' do
   @page_title = 'show'
   @id = params[:id]
-  memos = get_memos(FILE_PATH)
+  memos = get_memos
   @current_memo = target_memo(memos, @id)
   erb :show_index
 end
 
 delete '/memos/:id' do
   id = params[:id]
-  memos = get_memos(FILE_PATH)
+  memos = get_memos
   target_memo(memos, id)
   memos.delete(id.to_sym)
-  set_memos(FILE_PATH, memos)
+  set_memos(memos)
 
   redirect '/memos'
 end

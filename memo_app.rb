@@ -77,8 +77,9 @@ end
 
 delete '/memos/:id' do
   id = params[:id]
-  halt 404, 'Not Found!' unless memos.key?(id)
-  memos.delete(id)
+  memos = get_memos(FILE_PATH)
+  halt 404, 'Not Found!' unless memos.key?(id.to_sym)
+  memos.delete(id.to_sym)
   set_memos(FILE_PATH, memos)
 
   redirect '/memos'

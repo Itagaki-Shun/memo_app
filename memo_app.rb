@@ -88,7 +88,7 @@ end
 
 delete '/memos/:id' do
   id = params[:id]
-  halt 404, 'Not Found!' unless memos.key?
+  halt 404, 'Not Found!' unless memos.key?(id)
   memos.delete(id)
   set_memos(FILE_PATH, memos)
 

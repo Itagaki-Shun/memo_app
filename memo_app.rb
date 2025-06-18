@@ -8,7 +8,7 @@ require 'securerandom'
 FILE_PATH = 'public/memos.json'
 
 def get_memos(file_path)
-  File.open(file_path) { |f| JSON.parse(f.read) }
+  File.open(file_path) { |f| JSON.parse(f.read, symbolize_names: true) }
 end
 
 def set_memos(file_path, memos)

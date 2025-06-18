@@ -38,9 +38,6 @@ end
 
 post '/memos' do
   memos = get_memos(FILE_PATH)
-  memo_title = params[:title]
-  memo_content = params[:content]
-
   id = SecureRandom.uuid
   memos[id.to_sym] = params.slice(:title, :content)
   set_memos(FILE_PATH, memos)
@@ -52,20 +49,18 @@ get '/memos/:id/edit' do
   @page_title = 'edit'
   @id = params[:id]
   memos = get_memos(FILE_PATH)
-  memo = memos[@id.to_sym]
-  halt 404, 'Not Found!' unless memo
-  @memo_title = memo['title']
-  @memo_content = memo['content']
+  @current_memo = memos[@id.to_sym]
+  halt 404, 'Not Found!' unless @current_memo
   erb :edit_index
 end
 
 patch '/memos/:id' do
   id = params[:id]
   memos = get_memos(FILE_PATH)
-  memo = memos[@id.to_sym]
-  halt 404, 'Not Found!' unless memo
-  memo['title'] = params[:title]
-  memo['content'] = params[:content]
+  current_memo = memos[id.to_sym]
+  halt 404, 'Not Found!' unless current_memo
+  current_memo[:title] = params[:title]
+  current_memo[:content] = params[:content]
   set_memos(FILE_PATH, memos)
 
   redirect '/memos'
@@ -75,10 +70,8 @@ get '/memos/:id' do
   @page_title = 'show'
   @id = params[:id]
   memos = get_memos(FILE_PATH)
-  memo = memos[@id.to_sym]
-  halt 404, 'Not Found!' unless memo
-  @memo_title = memo['title']
-  @memo_content = memo['content']
+  @current_memo = memos[@id.to_sym]
+  halt 404, 'Not Found!' unless @current_memo
   erb :show_index
 end
 

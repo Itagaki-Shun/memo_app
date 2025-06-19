@@ -15,13 +15,13 @@ def set_memos(memos, file_path = FILE_PATH)
   File.open(file_path, 'w') { |f| JSON.dump(memos, f) }
 end
 
-helpers do
-  def target_memo(memos, id)
-    memo = memos[id.to_sym]
-    halt 404, 'Not Found!' unless memo
-    memo
-  end
+def target_memo(memos, id)
+  memo = memos[id.to_sym]
+  halt 404, 'Not Found!' unless memo
+  memo
+end
 
+helpers do
   def h(text)
     Rack::Utils.escape_html(text)
   end

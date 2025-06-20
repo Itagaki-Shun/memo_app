@@ -53,21 +53,18 @@ GEM
     loofah (2.24.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
-    mini_portile2 (2.8.9)
     minitest (5.25.5)
     multi_json (1.15.0)
     mustermann (3.0.3)
       ruby2_keywords (~> 0.0.1)
     nio4r (2.7.4)
-    nokogiri (1.18.8)
-      mini_portile2 (~> 2.8.2)
-      racc (~> 1.4)
     nokogiri (1.18.8-x86_64-linux-gnu)
       racc (~> 1.4)
     parallel (1.27.0)
     parser (3.3.8.0)
       ast (~> 2.4.1)
       racc
+    pg (1.5.9)
     prism (1.4.0)
     puma (6.6.0)
       nio4r (~> 2.0)
@@ -136,11 +133,11 @@ GEM
     uri (1.0.3)
 
 PLATFORMS
-  ruby
   x86_64-linux
 
 DEPENDENCIES
   erb_lint
+  pg
   puma
   rack
   rubocop-fjord

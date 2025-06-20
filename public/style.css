@@ -1,0 +1,90 @@
+/* style.css */
+
+.header-row {
+  font-size: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 32px auto 0 auto;
+  padding: 0 24px;
+}
+
+.add_button input[type="submit"] {
+  padding: 12px 32px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 15px;
+}
+
+.memo_form, .update_button {
+  text-align: center;
+}
+
+.memo_form input[type="submit"], .update_button input[type="submit"] {
+  padding: 12px 32px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 15px;
+  width: 200px;
+}
+
+.memo_title, .memo_content{
+  padding: 0 30px;
+  margin: 10px 0;
+}
+.memo_title input[type="text"] {
+  font-size: 30px;
+  width: 100%;
+  padding: 10px 5px;
+}
+
+.memo_content textarea {
+  field-sizing: content;
+  font-size: 25px;
+  min-height: 350px;
+  width: 100%;
+  padding: 10px 5px;
+}
+
+.memo_display {
+  text-align: left;
+  padding: 10px 45px;
+}
+
+.memo_display p[value="title"] {
+  font-size: 30px;
+}
+
+.memo_display p[value="content"] {
+  white-space: pre-wrap;
+  font-size: 25px;
+}
+
+.memo_processing {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 32px auto 0 auto;
+  padding: 0 45px;
+}
+.memo_processing input[type="submit"], .memo_processing button[type="submit"]{
+  padding: 12px 32px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-radius: 15px;
+  width: 200px;
+}
+
+ul {
+  padding-left: 60px;
+  font-size: 1.3rem;
+}
+
+li {
+  margin: 10px auto;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}

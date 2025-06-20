@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/style.css" type="text/css" media="all">
+  <title><%= @page_title %></title>
+</head>
+<body>
+  <header>
+    <div class="header-row">
+      <a>メモアプリ</a>
+      <% if @page_title == "top" %>
+        <div class="add_button">
+          <form action="/memos/new" method="get">
+            <input type="submit" value="追加">
+          </form>
+        </div>
+      <% end %>
+    </div>
+  </header>
+  <%= yield %>
+</body>
+</html>

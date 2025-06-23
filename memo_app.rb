@@ -17,6 +17,11 @@ def target_memo(id)
   memo.tuple_values(0)
 end
 
+configure do
+  table = conn.exec_params("SELECT * FROM information_schema.tables WHERE table_name = 'memos';")
+  conn.exec_params('CREATE TABLE memos (id serial primary key, title varchar(255), content text)') if table.values.empty?
+end
+
 helpers do
   def h(text)
     Rack::Utils.escape_html(text)

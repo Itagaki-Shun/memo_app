@@ -24,10 +24,9 @@ def read_memos
   conn.exec_params('SELECT * FROM Memos')
 end
 
-def target_memo(memos, id)
-  memo = memos[id.to_sym]
-  halt 404, 'Not Found!' unless memo
-  memo
+def target_memo(id)
+  memo = conn.exec_params('SELECT * FROM Memos WHERE id = $1', [id])
+  memo.tuple_values(0)
 end
 
 helpers do

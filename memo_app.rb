@@ -20,6 +20,10 @@ def conn
   @conn ||= PG.connect(dbname: 'memodb')
 end
 
+def read_memos
+  conn.exec_params('SELECT * FROM Memos')
+end
+
 def target_memo(memos, id)
   memo = memos[id.to_sym]
   halt 404, 'Not Found!' unless memo

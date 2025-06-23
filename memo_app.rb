@@ -81,8 +81,9 @@ end
 get '/memos/:id' do
   @page_title = 'show'
   @id = params[:id]
-  memos = get_memos
-  @current_memo = target_memo(memos, @id)
+  memo = target_memo(@id)
+  @memo_title = memo[1]
+  @memo_content = memo[2]
   erb :show
 end
 

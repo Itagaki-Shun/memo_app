@@ -9,11 +9,11 @@ def conn
 end
 
 def read_memos
-  conn.exec_params('SELECT * FROM Memos')
+  conn.exec_params('SELECT * FROM memos')
 end
 
 def target_memo(id)
-  memo = conn.exec_params('SELECT * FROM Memos WHERE id = $1', [id])
+  memo = conn.exec_params('SELECT * FROM memos WHERE id = $1', [id])
   memo.tuple_values(0)
 end
 
@@ -39,7 +39,7 @@ get '/memos/new' do
 end
 
 post '/memos' do
-  conn.exec_params('INSERT INTO Memos(title, content) VALUES ($1, $2);', [params[:title], params[:content]])
+  conn.exec_params('INSERT INTO memos(title, content) VALUES ($1, $2);', [params[:title], params[:content]])
   redirect '/memos'
 end
 
@@ -53,7 +53,7 @@ get '/memos/:id/edit' do
 end
 
 patch '/memos/:id' do
-  conn.exec_params('UPDATE Memos SET title = $1, content = $2 WHERE id = $3;', [params[:title], params[:content], params[:id]])
+  conn.exec_params('UPDATE memos SET title = $1, content = $2 WHERE id = $3;', [params[:title], params[:content], params[:id]])
   redirect '/memos'
 end
 
@@ -67,6 +67,6 @@ get '/memos/:id' do
 end
 
 delete '/memos/:id' do
-  conn.exec_params('DELETE FROM Memos WHERE id = $1', [params[:id]])
+  conn.exec_params('DELETE FROM memos WHERE id = $1', [params[:id]])
   redirect '/memos'
 end

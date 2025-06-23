@@ -4,6 +4,7 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'json'
 require 'securerandom'
+require 'pg'
 
 FILE_PATH = 'public/memos.json'
 
@@ -13,6 +14,10 @@ end
 
 def set_memos(memos, file_path = FILE_PATH)
   File.open(file_path, 'w') { |f| JSON.dump(memos, f) }
+end
+
+def conn
+  @conn ||= PG.connect(dbname: 'memodb')
 end
 
 def target_memo(memos, id)

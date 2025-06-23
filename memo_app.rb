@@ -58,19 +58,14 @@ end
 get '/memos/:id/edit' do
   @page_title = 'edit'
   @id = params[:id]
-  memos = get_memos
-  @current_memo = target_memo(memos, @id)
+  memo = target_memo(@id)
+  @memo_title = memo[1]
+  @memo_content = memo[2]
   erb :edit
 end
 
 patch '/memos/:id' do
-  id = params[:id]
-  memos = get_memos
-  current_memo = target_memo(memos, id)
-  current_memo[:title] = params[:title]
-  current_memo[:content] = params[:content]
-  set_memos(memos)
-
+  conn.exec_params('UPDATE Memos SET title = $1, content = $2 WHERE id = $3;', [params[:title], params[:content], params[:id]])
   redirect '/memos'
 end
 

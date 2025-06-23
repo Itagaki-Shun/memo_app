@@ -42,7 +42,7 @@ end
 
 get '/memos' do
   @page_title = 'top'
-  @memos = get_memos
+  @memos = read_memos
   erb :index
 end
 

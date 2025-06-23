@@ -51,11 +51,7 @@ get '/memos/new' do
 end
 
 post '/memos' do
-  memos = get_memos
-  id = SecureRandom.uuid
-  memos[id.to_sym] = params.slice(:title, :content)
-  set_memos(memos)
-
+  conn.exec_params('INSERT INTO Memos(title, content) VALUES ($1, $2);', [params[:title], params[:content]])
   redirect '/memos'
 end
 

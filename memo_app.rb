@@ -79,11 +79,6 @@ get '/memos/:id' do
 end
 
 delete '/memos/:id' do
-  id = params[:id]
-  memos = get_memos
-  target_memo(memos, id)
-  memos.delete(id.to_sym)
-  set_memos(memos)
-
+  conn.exec_params('DELETE FROM Memos WHERE id = $1', [params[:id]])
   redirect '/memos'
 end

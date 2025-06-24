@@ -3,16 +3,9 @@
 require 'sinatra'
 require 'sinatra/reloader'
 require 'pg'
-require 'dotenv/load'
 
 def conn
-  @conn ||= PG.connect(
-    dbname:   ENV['DB_NAME'],
-    user:     ENV['DB_USER'],
-    password: ENV['DB_PASSWORD'],
-    host:     ENV['DB_HOST'],
-    port:     ENV['DB_PORT']
-    )
+  @conn ||= PG.connect(dbname: 'memodb')
 end
 
 def read_memos

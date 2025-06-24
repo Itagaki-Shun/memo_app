@@ -12,6 +12,8 @@ gem 'sinatra-contrib'
 gem 'puma'
 gem 'rack'
 
+gem 'dotenv'
+
 gem 'erb_lint', require: false
 group :development do
   gem 'rubocop-fjord', require: false

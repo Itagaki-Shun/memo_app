@@ -52,9 +52,7 @@ end
 get '/memos/:id/edit' do
   @page_title = 'edit'
   @id = params[:id]
-  memo = target_memo(@id)
-  @memo_title = memo[1]
-  @memo_content = memo[2]
+  @current_memo = target_memo(@id)
   erb :edit
 end
 
@@ -66,9 +64,7 @@ end
 get '/memos/:id' do
   @page_title = 'show'
   @id = params[:id]
-  memo = target_memo(@id)
-  @memo_title = memo[1]
-  @memo_content = memo[2]
+  @current_memo = target_memo(@id)
   erb :show
 end
 

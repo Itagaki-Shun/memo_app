@@ -14,7 +14,8 @@ end
 
 def target_memo(id)
   memo = conn.exec_params('SELECT * FROM memos WHERE id = $1', [id])
-  memo.tuple_values(0)
+  hash = memo.first
+  hash.transform_keys(&:to_sym)
 end
 
 configure do

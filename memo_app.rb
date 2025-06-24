@@ -9,7 +9,7 @@ def conn
 end
 
 def read_memos
-  conn.exec_params('SELECT * FROM memos')
+  conn.exec_params('SELECT * FROM memos ORDER BY id ASC')
 end
 
 def target_memo(id)

@@ -4,11 +4,15 @@ source 'https://rubygems.org'
 
 # gem 'rails'
 
+gem 'pg'
+
 gem 'sinatra'
 gem 'sinatra-contrib'
 
 gem 'puma'
 gem 'rack'
+
+gem 'dotenv'
 
 gem 'erb_lint', require: false
 group :development do

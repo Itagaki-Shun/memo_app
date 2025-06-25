@@ -2,23 +2,32 @@
 
 require 'sinatra'
 require 'sinatra/reloader'
-require 'json'
-require 'securerandom'
+require 'pg'
+require 'dotenv/load'
 
-FILE_PATH = 'public/memos.json'
-
-def get_memos(file_path = FILE_PATH)
-  File.open(file_path) { |f| JSON.parse(f.read, symbolize_names: true) }
+def conn
+  @conn ||= PG.connect(
+    dbname: ENV['DB_NAME'],
+    user: ENV['DB_USER'],
+    password: ENV['DB_PASSWORD'],
+    host: ENV['DB_HOST'],
+    port: ENV['DB_PORT']
+  )
 end
 
-def set_memos(memos, file_path = FILE_PATH)
-  File.open(file_path, 'w') { |f| JSON.dump(memos, f) }
+def read_memos
+  conn.exec_params('SELECT * FROM memos ORDER BY id ASC')
 end
 
-def target_memo(memos, id)
-  memo = memos[id.to_sym]
-  halt 404, 'Not Found!' unless memo
-  memo
+def target_memo(id)
+  memo = conn.exec_params('SELECT * FROM memos WHERE id = $1', [id])
+  hash = memo.first
+  hash.transform_keys(&:to_sym)
+end
+
+configure do
+  table = conn.exec_params("SELECT * FROM information_schema.tables WHERE table_name = 'memos';")
+  conn.exec_params('CREATE TABLE memos (id serial primary key, title varchar(255), content text)') if table.values.empty?
 end
 
 helpers do
@@ -33,7 +42,7 @@ end
 
 get '/memos' do
   @page_title = 'top'
-  @memos = get_memos
+  @memos = read_memos
   erb :index
 end
 
@@ -43,47 +52,30 @@ get '/memos/new' do
 end
 
 post '/memos' do
-  memos = get_memos
-  id = SecureRandom.uuid
-  memos[id.to_sym] = params.slice(:title, :content)
-  set_memos(memos)
-
+  conn.exec_params('INSERT INTO memos(title, content) VALUES ($1, $2);', [params[:title], params[:content]])
   redirect '/memos'
 end
 
 get '/memos/:id/edit' do
   @page_title = 'edit'
   @id = params[:id]
-  memos = get_memos
-  @current_memo = target_memo(memos, @id)
+  @current_memo = target_memo(@id)
   erb :edit
 end
 
 patch '/memos/:id' do
-  id = params[:id]
-  memos = get_memos
-  current_memo = target_memo(memos, id)
-  current_memo[:title] = params[:title]
-  current_memo[:content] = params[:content]
-  set_memos(memos)
-
+  conn.exec_params('UPDATE memos SET title = $1, content = $2 WHERE id = $3;', [params[:title], params[:content], params[:id]])
   redirect '/memos'
 end
 
 get '/memos/:id' do
   @page_title = 'show'
   @id = params[:id]
-  memos = get_memos
-  @current_memo = target_memo(memos, @id)
+  @current_memo = target_memo(@id)
   erb :show
 end
 
 delete '/memos/:id' do
-  id = params[:id]
-  memos = get_memos
-  target_memo(memos, id)
-  memos.delete(id.to_sym)
-  set_memos(memos)
-
+  conn.exec_params('DELETE FROM memos WHERE id = $1', [params[:id]])
   redirect '/memos'
 end
